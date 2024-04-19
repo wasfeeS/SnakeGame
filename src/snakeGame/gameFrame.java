@@ -10,12 +10,12 @@ import javax.swing.JFrame;
  *
  * @author Wasfee
  */
-public class gameFrame extends javax.swing.JFrame {
+public class gameFrame extends JFrame {
 
     /**
      * Creates new form gameFrame
      */
-    public gameFrame() {
+    gameFrame() {
         initComponents();
         this.add(new gamePanel());
         this.setTitle("snake");
