@@ -15,7 +15,7 @@ import javax.swing.*;
 public class gamePanel extends JPanel implements ActionListener{
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
-    static final int UNIT_SIZE = 50;
+    static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     static final int DELAY = 75;
     final int x[] = new int[GAME_UNITS];
@@ -31,11 +31,10 @@ public class gamePanel extends JPanel implements ActionListener{
     gamePanel() {
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
-        this.setBackground(Color.black);
+        this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
-        initComponents();
     }
     public void startGame(){
         newApple();
@@ -44,16 +43,20 @@ public class gamePanel extends JPanel implements ActionListener{
         timer.start();
     }   
     
-    public void paintCOmponent(Graphics g){
+    @Override
+    public void paintComponent(Graphics g){
         super.paintComponent(g);
+        draw(g);
     }
     
     public void draw(Graphics g){
-        for(int i = 0; i>SCREEN_HEIGHT/UNIT_SIZE;i++){
+       
+        for(int i = 0; i<SCREEN_HEIGHT/UNIT_SIZE;i++){
+            g.setColor(Color.LIGHT_GRAY);
             g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
             g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
         }
-        g.setColor(Color.red);
+        g.setColor(Color.RED);
         g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
         
         for(int i = 0; i<bodyParts; i++){
@@ -69,8 +72,8 @@ public class gamePanel extends JPanel implements ActionListener{
     }
     
     public void newApple(){
-        appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE));
-        appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE));
+        appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE);
+        appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE);
     }
     
     public void move(){
@@ -103,7 +106,7 @@ public class gamePanel extends JPanel implements ActionListener{
     
     }
     
-    public  void gameOver(){
+    public  void gameOver(Graphics g){
         
     }
     
@@ -111,7 +114,7 @@ public class gamePanel extends JPanel implements ActionListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
