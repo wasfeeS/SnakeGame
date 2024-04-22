@@ -1,51 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package snakeGame;
 import javax.swing.*;
 import java.awt.*;
-/**
- *
- * @author Wasfee
- */
-public class highScore extends JFrame{
-    JLabel highScoreLabel;
+import java.util.ArrayList;
+import snakeGame.gamePanel;
+
+public class highScore extends JFrame {
+    JTextArea highScoreTextArea;
     JLabel titleLabel;
     JButton closeButton;
 
-    public highScore(int highScore) {
+    public highScore(ArrayList<ArrayList<Object>> od) {
+        ArrayList<ArrayList<Object>> oldData = od;
         setTitle("High Score");
-        setSize(300, 200);
-        setLocationRelativeTo(null); // Center the window
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose when closed
-        
+        setSize(600, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBackground(Color.BLACK); // Set background color to black
+        panel.setBackground(Color.BLACK);
 
         titleLabel = new JLabel("High Score");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setForeground(Color.RED); // Set text color to red
+        titleLabel.setForeground(Color.RED);
         panel.add(titleLabel, BorderLayout.NORTH);
-
-        highScoreLabel = new JLabel("Score: " + highScore);
-        highScoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        highScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        highScoreLabel.setForeground(Color.RED); // Set text color to red
-        panel.add(highScoreLabel, BorderLayout.CENTER);
+        highScoreTextArea = new JTextArea();
+        for(int i = 0; i < oldData.size(); i++){ 
+            highScoreTextArea.append("Username: " + oldData.get(i).get(0) + " | Score: " + oldData.get(i).get(1) +"\n");
+            highScoreTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
+            highScoreTextArea.setEditable(false);
+            highScoreTextArea.setBackground(Color.BLACK);
+            highScoreTextArea.setForeground(Color.RED);
+            JScrollPane scrollPane = new JScrollPane(highScoreTextArea);
+            panel.add(scrollPane, BorderLayout.CENTER);}
 
         closeButton = new JButton("Close");
         closeButton.setFont(new Font("Arial", Font.PLAIN, 14));
-        closeButton.addActionListener(e -> dispose()); // Close the window when the button is clicked
-        closeButton.setBackground(Color.BLACK); // Set button background color to black
-        closeButton.setForeground(Color.RED); // Set button text color to red
+        closeButton.addActionListener(e -> dispose());
+        closeButton.setBackground(Color.BLACK);
+        closeButton.setForeground(Color.RED);
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.BLACK); // Set panel background color to black
+        buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(closeButton);
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(panel);
     }
 }
+
