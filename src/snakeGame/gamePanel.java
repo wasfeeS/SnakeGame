@@ -15,11 +15,12 @@ import javax.swing.*;
 public class gamePanel extends JPanel implements ActionListener{
     JButton highScoreButton;
     JButton playAgainButton;
+    JButton exitButton;
     static final int SCREEN_WIDTH = 600;
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
-    static final int DELAY = 105;
+    static final int DELAY = 100;
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
     int bodyParts = 6;
@@ -32,24 +33,27 @@ public class gamePanel extends JPanel implements ActionListener{
     Random random;
     gamePanel() {
         random = new Random();
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
-        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 500));
-        UIManager.put("Button.background", new Color(255, 0, 0)); 
+        setLayout(new FlowLayout(FlowLayout.CENTER, 20, 500)); // Adjust horizontal gap here
+        UIManager.put("Button.background", new Color(255, 0, 0));
         UIManager.put("Button.foreground", Color.WHITE);
         UIManager.put("Button.font", new Font("Arial", Font.BOLD, 16));
         highScoreButton = new JButton("View High Score");
         highScoreButton.addActionListener(this);
         highScoreButton.setVisible(false);
         add(highScoreButton);
-        add(Box.createRigidArea(new Dimension(100, 0)));
         playAgainButton = new JButton("Play Again");
         playAgainButton.addActionListener(this);
         playAgainButton.setVisible(false);
         add(playAgainButton);
+        exitButton = new JButton("Exit");
+        exitButton.addActionListener(this);
+        exitButton.setVisible(false);
+        add(exitButton);
     }
 
     public void startGame(){
@@ -93,6 +97,7 @@ public class gamePanel extends JPanel implements ActionListener{
            g.drawString("GAME OVER", (SCREEN_WIDTH - metrics.stringWidth("GAME OVER"))/2, SCREEN_HEIGHT/2);
            highScoreButton.setVisible(true);
            playAgainButton.setVisible(true);
+           exitButton.setVisible(true);
        }
     }
     
@@ -179,6 +184,7 @@ public class gamePanel extends JPanel implements ActionListener{
     repaint();
     highScoreButton.setVisible(false);
     playAgainButton.setVisible(false);
+    exitButton.setVisible(false);
     }
     
     private void showHighScore() {
@@ -206,6 +212,12 @@ public class gamePanel extends JPanel implements ActionListener{
         } 
         else if (e.getSource() == playAgainButton) {
            resetGame();
+        }
+        else if (e.getSource() == exitButton) {
+            JFrame gameFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            gameFrame.dispose();
+            snakeGame.MainMenu mainMenu = new snakeGame.MainMenu();
+            mainMenu.setVisible(true);
         }
     }
     
