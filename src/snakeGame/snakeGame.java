@@ -5,7 +5,7 @@
 package snakeGame;
 import javax.swing.*;
 import java.awt.*;
-import static snakeGame.gamePanel.applesEaten;
+
 
 
 public class snakeGame {
@@ -43,15 +43,20 @@ public class snakeGame {
             panel.add(playButton);
             exitButton = new JButton("Exit");
             customizeButton(exitButton);
-            exitButton.addActionListener(e -> System.exit(0));
+            exitButton.addActionListener(e -> {
+            int confirmed = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
+                if (confirmed == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+            });
+
             panel.add(exitButton);
             add(panel);
             setVisible(true);
         }
 
         private void showHighScore() {
-            int highScore = gamePanel.applesEaten;
-            highScore highScoreWindow = new highScore((snakeGame.username), highScore);
+            highScore highScoreWindow = new highScore(gamePanel.oldData);
             highScoreWindow.setVisible(true);
         }
 
